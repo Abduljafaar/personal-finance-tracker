@@ -1,0 +1,11 @@
+.idea/
+*.iml
+
+# Maven build output
+**/target/
+
+# Node modules
+**/node_modules/
+
+# Environment files
+.env

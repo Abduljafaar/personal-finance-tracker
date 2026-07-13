@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: personal-finance-tracker-api
+    runtime: docker
+    repo: https://github.com/Abduljafaaar/personal-finance-tracker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: JWT_SECRET
+        value: mySuperSecretKeyForJWTTokenGeneration1234567890
