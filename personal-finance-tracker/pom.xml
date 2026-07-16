@@ -19,7 +19,7 @@
     <description>Personal Finance Tracker Backend API</description>
 
     <properties>
-        <java.version>26</java.version>
+        <java.version>21</java.version>
         <jjwt.version>0.11.5</jjwt.version>
     </properties>
 
