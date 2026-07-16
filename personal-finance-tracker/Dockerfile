@@ -1,12 +1,24 @@
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+# ---------- Build Stage ----------
+FROM maven:3.9.6-eclipse-temurin-21 AS build
+
 WORKDIR /app
-COPY pom.xml .
-RUN mvn dependency:go-offline
-COPY src ./src
+
+# Copy all project files
+COPY . .
+
+# Build the Spring Boot application
 RUN mvn clean package -DskipTests
 
-FROM openjdk:17-jdk-slim
+# ---------- Runtime Stage ----------
+FROM eclipse-temurin:21-jre
+
 WORKDIR /app
+
+# Copy the generated JAR from the build stage
 COPY --from=build /app/target/*.jar app.jar
+
+# Expose the application port
 EXPOSE 8080
-CMD ["java", "-jar", "app.jar"]
+
+# Start the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
