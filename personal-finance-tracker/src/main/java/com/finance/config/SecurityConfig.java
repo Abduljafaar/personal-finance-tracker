@@ -1,8 +1,6 @@
 package com.finance.config;
 
 import com.finance.security.JwtAuthenticationFilter;
-import com.finance.security.JwtTokenProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,12 +23,10 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private JwtTokenProvider tokenProvider;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter();
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
     @Bean
@@ -89,7 +85,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(
-                        jwtAuthenticationFilter(),
+                        jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class
                 );
 
